@@ -26,7 +26,7 @@ body {
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 2.5rem;
+  margin-bottom: 2rem;
   padding: 1.5rem 2rem;
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(10px);
@@ -88,6 +88,113 @@ body {
 .grade-btn:hover:not(.active) {
   background: rgba(26, 58, 95, 0.08);
   color: #1a3a5f;
+}
+
+/* ===== BRACKET ILLUSTRATION ===== */
+.bracket-illustration {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(4px);
+  border-radius: 24px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+}
+
+.bracket-stage h3 {
+  font-size: 1rem;
+  color: #1a3a5f;
+  margin-bottom: 1rem;
+  text-align: center;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.bracket-tree {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.bracket-match-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: white;
+  padding: 0.4rem 0.8rem;
+  border-radius: 10px;
+  border-left: 3px solid #1a3a5f;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  transition: 0.15s;
+}
+
+.bracket-match-row:hover {
+  transform: translateX(4px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.bracket-match-row .match-number {
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: #8aa0b8;
+  min-width: 28px;
+}
+
+.bracket-match-row .match-teams-mini {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+  font-size: 0.8rem;
+}
+
+.bracket-match-row .match-teams-mini .team {
+  font-weight: 600;
+  color: #143450;
+}
+
+.bracket-match-row .match-teams-mini .team-b {
+  color: #4a6a8a;
+}
+
+.bracket-match-row .match-teams-mini .vs-mini {
+  font-size: 0.55rem;
+  font-weight: 700;
+  color: #8aa0b8;
+  background: #eef3fa;
+  padding: 0.05rem 0.5rem;
+  border-radius: 20px;
+}
+
+.bracket-match-row .match-status {
+  font-size: 0.6rem;
+  padding: 0.1rem 0.5rem;
+  border-radius: 20px;
+  background: #e8edf5;
+  color: #4a6a8a;
+}
+
+.bracket-match-row .match-status.upcoming {
+  background: #d4e3d4;
+  color: #1f5a2a;
+}
+
+.bracket-match-row .match-status.live {
+  background: #f0d8a0;
+  color: #8a6a1a;
+  animation: pulse 1.5s infinite;
+}
+
+.bracket-match-row .match-status.finished {
+  background: #d4dce8;
+  color: #4a5a6a;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
 }
 
 /* ===== BRACKET GRID ===== */
@@ -404,7 +511,7 @@ body {
   padding: 0 0.5rem;
 }
 
-/* Countdown */
+/* Countdown - Real Time */
 .countdown-section {
   background: linear-gradient(135deg, #f0f5fa, #e8edf5);
   border-radius: 16px;
@@ -429,37 +536,18 @@ body {
   margin: 0.3rem 0;
 }
 
-.countdown-controls {
-  display: flex;
-  gap: 0.5rem;
-  justify-content: center;
-  margin-top: 0.5rem;
+.countdown-display.ended {
+  color: #c0392b;
+  animation: pulse 1s infinite;
 }
 
-.countdown-btn {
-  background: white;
-  border: 1px solid #cddbe9;
-  border-radius: 30px;
-  padding: 0.3rem 1.2rem;
-  font-weight: 600;
-  font-size: 0.75rem;
-  color: #1a3a5f;
-  cursor: pointer;
-  transition: 0.15s;
+.countdown-info {
+  font-size: 0.7rem;
+  color: #6a8aaa;
+  margin-top: 0.2rem;
 }
 
-.countdown-btn:hover {
-  background: #1a3a5f;
-  color: white;
-  border-color: #1a3a5f;
-}
-
-.countdown-btn.danger:hover {
-  background: #c0392b;
-  border-color: #c0392b;
-}
-
-/* Hasil Pertandingan (statis, hanya display) */
+/* Hasil Pertandingan (statis) */
 .result-section {
   background: white;
   border: 2px solid #e8edf5;
@@ -573,20 +661,12 @@ body {
   margin-top: 0.5rem;
 }
 
-/* ===== HIDDEN SCORE INPUT ===== */
-.score-input-hidden {
-  display: none !important;
-}
-
-/* ===== EMPTY STATE ===== */
-.empty-note {
+.poll-note {
+  font-size: 0.6rem;
+  color: #8aa0b8;
   text-align: center;
-  padding: 4rem 2rem;
-  color: #4a6a8a;
-  background: rgba(255, 255, 255, 0.6);
-  border-radius: 40px;
-  font-size: 1.1rem;
-  grid-column: 1 / -1;
+  margin-top: 0.3rem;
+  font-style: italic;
 }
 
 /* ===== RESPONSIVE ===== */
@@ -613,6 +693,11 @@ body {
   .grade-btn {
     padding: 0.4rem 1rem;
     font-size: 0.8rem;
+  }
+  .bracket-illustration {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 1rem;
   }
   .bracket-wrapper {
     padding: 1rem 0.8rem;
@@ -657,4 +742,8 @@ body {
   .team-block .team-label { min-width: 40px; font-size: 0.5rem; }
   .player-name { font-size: 0.8rem; }
   .result-display { font-size: 1.8rem; }
+  .bracket-match-row .match-teams-mini {
+    font-size: 0.65rem;
+    flex-wrap: wrap;
+  }
 }
