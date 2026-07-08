@@ -484,7 +484,6 @@
           <span style="color:#8aa0b8; font-weight:300;"> : </span>
           <span class="team-b-score">${scoreB}</span>
         </div>
-        <div class="result-edit-note">✏️ Edit di file script.js (field "result")</div>
       </div>
     `;
 
