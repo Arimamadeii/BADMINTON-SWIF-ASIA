@@ -43,20 +43,20 @@
     { 
       grade: 'A', round: '16',
       teamA: ['DANI', 'SYAHRI'], 
-      teamB: ['ONI .T', 'NDIVAL'], 
+      teamB: ['ONO .T', 'NOVAL'], 
       day: 'SENIN', date: '20-JULI', time: '18:30',
       result: '0:0'
     },
     { 
       grade: 'A', round: '16',
-      teamA: ['TATA', 'SIDIG'], 
+      teamA: ['TATA', 'SODIG'], 
       teamB: ['BAREND', 'UJANG'], 
       day: 'SENIN', date: '27-JULI', time: '17:30',
       result: '0:0'
     },
     { 
       grade: 'A', round: '16',
-      teamA: ['RIDUL', 'AGUS'], 
+      teamA: ['ROMLI', 'AGUS'], 
       teamB: ['ENTIS', 'PAK YADI'], 
       day: 'SENIN', date: '27-JULI', time: '18:00',
       result: '0:0'
@@ -120,29 +120,29 @@
     // ===== GRADE B - 8 BESAR (4 pertandingan) =====
     { 
       grade: 'B', round: '8',
-      teamA: ['RUDI', 'SUSANTO'], 
-      teamB: ['TEGUH', 'JOKO'], 
-      day: 'SENIN', date: '14-JULI', time: '17:30',
+      teamA: ['DENI', 'WILDAN'], 
+      teamB: ['JAENAL', 'ALDI'], 
+      day: 'SENIN', date: '13-JULI', time: '17:30',
       result: '0:0'
     },
     { 
       grade: 'B', round: '8',
-      teamA: ['BAMBANG', 'PUTRI'], 
-      teamB: ['DIMAS', 'RINA'], 
-      day: 'SENIN', date: '21-JULI', time: '18:00',
+      teamA: ['ARIF S', 'TRI W'], 
+      teamB: ['DADANG', 'KARTO'], 
+      day: 'SENIN', date: '20-JULI', time: '18:00',
       result: '0:0'
     },
     { 
       grade: 'B', round: '8',
-      teamA: ['AGUS', 'SARI'], 
-      teamB: ['INDAH', 'BAYU'], 
+      teamA: ['ARIF ELC', 'MEGGY'], 
+      teamB: ['BILLY', 'NABIL'], 
       day: 'SENIN', date: '28-JULI', time: '17:45',
       result: '0:0'
     },
     { 
       grade: 'B', round: '8',
-      teamA: ['HENDRA', 'NOVA'], 
-      teamB: ['FIKRI', 'ANISA'], 
+      teamA: ['YONA', 'LULUK'], 
+      teamB: ['AWAY', 'FAISAL'], 
       day: 'SENIN', date: '4-AUG', time: '18:15',
       result: '0:0'
     },
