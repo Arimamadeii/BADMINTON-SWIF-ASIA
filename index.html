@@ -12,7 +12,7 @@
   <header class="header">
     <div class="header-left">
       <h1>🏸 SWIF ASIA <small>BADMINTON CHAMPIONSHIP 2026</small></h1>
-      <p class="subtitle">Bagan Pertandingan Grade A & B</p>
+      <p class="subtitle">Bagan Turnamen Grade A & B</p>
     </div>
     <div class="grade-selector">
       <button class="grade-btn active" data-grade="all">SEMUA</button>
@@ -21,20 +21,25 @@
     </div>
   </header>
 
-  <!-- BRACKET ILLUSTRATION -->
+  <!-- BRACKET ILLUSTRATION LENGKAP -->
   <div class="bracket-illustration">
     <div class="bracket-stage">
       <h3>🏆 GRADE A - BRACKET</h3>
-      <div class="bracket-tree" id="bracketTreeA">
-        <!-- Akan di-render oleh JS -->
-      </div>
+      <div class="bracket-tree" id="bracketTreeA"></div>
     </div>
     <div class="bracket-stage">
       <h3>🏆 GRADE B - BRACKET</h3>
-      <div class="bracket-tree" id="bracketTreeB">
-        <!-- Akan di-render oleh JS -->
-      </div>
+      <div class="bracket-tree" id="bracketTreeB"></div>
     </div>
+  </div>
+
+  <!-- FILTER BABAK -->
+  <div class="round-filter">
+    <button class="round-btn active" data-round="all">SEMUA BABAK</button>
+    <button class="round-btn" data-round="16">16 BESAR</button>
+    <button class="round-btn" data-round="8">8 BESAR</button>
+    <button class="round-btn" data-round="semifinal">SEMIFINAL</button>
+    <button class="round-btn" data-round="final">FINAL</button>
   </div>
 
   <div class="bracket-wrapper">
@@ -46,9 +51,7 @@
 <div id="matchModal" class="modal">
   <div class="modal-content">
     <span class="modal-close">&times;</span>
-    <div id="modalBody">
-      <!-- Konten akan diisi oleh JavaScript -->
-    </div>
+    <div id="modalBody"></div>
   </div>
 </div>
 
