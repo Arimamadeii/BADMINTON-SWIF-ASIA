@@ -10,7 +10,10 @@
 
 <div class="container">
   <header class="header">
-    <h1>🏸 SWIF ASIA <small>BADMINTON 2026</small></h1>
+    <div class="header-left">
+      <h1>🏸 SWIF ASIA <small>BADMINTON CHAMPIONSHIP 2026</small></h1>
+      <p class="subtitle">Bagan Pertandingan Grade A & B</p>
+    </div>
     <div class="grade-selector">
       <button class="grade-btn active" data-grade="all">SEMUA</button>
       <button class="grade-btn" data-grade="A">GRADE A</button>
@@ -18,7 +21,9 @@
     </div>
   </header>
 
-  <div id="bracketContainer" class="bracket"></div>
+  <div class="bracket-wrapper">
+    <div id="bracketContainer" class="bracket"></div>
+  </div>
 </div>
 
 <script src="script.js"></script>
