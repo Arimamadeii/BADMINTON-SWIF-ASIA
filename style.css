@@ -80,7 +80,7 @@ body {
 /* ----- BRACKET GRID ----- */
 .bracket {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   gap: 1.8rem;
   margin-top: 1rem;
 }
@@ -126,42 +126,63 @@ body {
   color: white;
 }
 
-/* ----- PLAYER ROW (double) ----- */
-.player-pair {
+/* ----- TEAM VS TEAM (double) ----- */
+.match-teams {
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
+  gap: 0.5rem;
 }
 
-.pair-line {
+.team-block {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.3rem 0;
-  border-bottom: 1px dashed #e6edf6;
+  flex-direction: column;
+  padding: 0.4rem 0.6rem;
+  background: #f8fafd;
+  border-radius: 12px;
+  border-left: 3px solid #1d4a77;
 }
 
-.pair-line:last-of-type {
-  border-bottom: none;
+.team-block.team-b {
+  border-left-color: #4f7a9e;
+}
+
+.team-label {
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: #6a7f97;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.15rem;
+}
+
+.team-players {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .player-name {
   font-weight: 600;
-  font-size: 1.05rem;
+  font-size: 1rem;
   color: #143450;
 }
 
-.vs-badge {
-  font-size: 0.65rem;
-  font-weight: 700;
-  color: #6a7f97;
-  background: #eef3fa;
-  padding: 0.1rem 0.7rem;
-  border-radius: 30px;
-  letter-spacing: 0.3px;
+.player-name + .player-name {
+  margin-left: 0.5rem;
 }
 
-/* ----- RESULT INPUT (tanpa tombol eliminasi) ----- */
+.vs-divider {
+  text-align: center;
+  font-weight: 700;
+  color: #8aa0b8;
+  font-size: 0.75rem;
+  background: #eef3fa;
+  padding: 0.1rem 0.8rem;
+  border-radius: 30px;
+  align-self: center;
+}
+
+/* ----- RESULT INPUT ----- */
 .result-area {
   display: flex;
   align-items: center;
