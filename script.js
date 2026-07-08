@@ -10,7 +10,7 @@
       teamA: ['KARMIN', 'AZIS'], 
       teamB: ['IDRIS', 'BINTANG'], 
       day: 'SENIN', date: '13-JULI', time: '17:30',
-      result: '0:0' // Hasil pertandingan (akan diedit manual di code)
+      result: '0:0'
     },
     { 
       grade: 'A', 
@@ -97,10 +97,9 @@
   // STATE
   // ==============================================================
   let currentFilter = 'all';
-  let activeCountdown = null;
-  let countdownInterval = null;
+  let countdownIntervals = {};
 
-  // Polling data (disimpan di localStorage agar persist)
+  // Polling data (disimpan di localStorage)
   function getPollData(matchId) {
     const key = `poll_${matchId}`;
     const stored = localStorage.getItem(key);
@@ -116,16 +115,116 @@
   }
 
   // ==============================================================
-  // DOM REFS
+  // FUNGSI PARSE TANGGAL
   // ==============================================================
-  const container = document.getElementById('bracketContainer');
-  const gradeBtns = document.querySelectorAll('.grade-btn');
-  const modal = document.getElementById('matchModal');
-  const modalBody = document.getElementById('modalBody');
-  const modalClose = document.querySelector('.modal-close');
+  function parseMatchDate(dateStr, timeStr) {
+    // Format: "13-JULI" dan "17:30"
+    const months = {
+      'JAN': 0, 'FEB': 1, 'MAR': 2, 'APR': 3, 'MEI': 4, 'JUN': 5,
+      'JULI': 6, 'AGU': 7, 'SEP': 8, 'OKT': 9, 'NOV': 10, 'DES': 11,
+      'JUL': 6, 'AUG': 7
+    };
+    
+    try {
+      const parts = dateStr.split('-');
+      const day = parseInt(parts[0]);
+      const monthStr = parts[1].toUpperCase();
+      const month = months[monthStr] !== undefined ? months[monthStr] : 6;
+      
+      const timeParts = timeStr.split(':');
+      const hours = parseInt(timeParts[0]);
+      const minutes = parseInt(timeParts[1]);
+      
+      const now = new Date();
+      let year = now.getFullYear();
+      let matchDate = new Date(year, month, day, hours, minutes);
+      
+      // Jika tanggal sudah lewat di tahun ini, tambahkan 1 tahun
+      if (matchDate < now) {
+        matchDate = new Date(year + 1, month, day, hours, minutes);
+      }
+      
+      return matchDate;
+    } catch(e) {
+      return null;
+    }
+  }
 
   // ==============================================================
-  // RENDER FUNGSI
+  // RENDER BRACKET ILLUSTRATION
+  // ==============================================================
+  function renderBracketIllustration() {
+    // GRADE A
+    const gradeAMatches = allMatches.filter(m => m.grade === 'A');
+    const treeA = document.getElementById('bracketTreeA');
+    if (treeA) {
+      let html = '';
+      gradeAMatches.forEach((m, idx) => {
+        const status = getMatchStatus(m);
+        html += `
+          <div class="bracket-match-row">
+            <span class="match-number">M${idx+1}</span>
+            <div class="match-teams-mini">
+              <span class="team">${m.teamA[0]}&${m.teamA[1]}</span>
+              <span class="vs-mini">VS</span>
+              <span class="team team-b">${m.teamB[0]}&${m.teamB[1]}</span>
+            </div>
+            <span class="match-status ${status}">${status}</span>
+          </div>
+        `;
+      });
+      treeA.innerHTML = html;
+    }
+
+    // GRADE B
+    const gradeBMatches = allMatches.filter(m => m.grade === 'B');
+    const treeB = document.getElementById('bracketTreeB');
+    if (treeB) {
+      let html = '';
+      gradeBMatches.forEach((m, idx) => {
+        const status = getMatchStatus(m);
+        html += `
+          <div class="bracket-match-row">
+            <span class="match-number">M${idx+1}</span>
+            <div class="match-teams-mini">
+              <span class="team">${m.teamA[0]}&${m.teamA[1]}</span>
+              <span class="vs-mini">VS</span>
+              <span class="team team-b">${m.teamB[0]}&${m.teamB[1]}</span>
+            </div>
+            <span class="match-status ${status}">${status}</span>
+          </div>
+        `;
+      });
+      treeB.innerHTML = html;
+    }
+  }
+
+  // ==============================================================
+  // GET MATCH STATUS (untuk bracket illustration)
+  // ==============================================================
+  function getMatchStatus(match) {
+    const matchDate = parseMatchDate(match.date, match.time);
+    if (!matchDate) return 'upcoming';
+    
+    const now = new Date();
+    const diff = matchDate - now;
+    
+    // Cek hasil pertandingan
+    if (match.result && match.result !== '0:0') {
+      return 'finished';
+    }
+    
+    if (diff < 0) {
+      return 'finished';
+    } else if (diff < 3600000) { // kurang dari 1 jam
+      return 'live';
+    } else {
+      return 'upcoming';
+    }
+  }
+
+  // ==============================================================
+  // RENDER CARD MATCH
   // ==============================================================
   function renderBracket(filter) {
     const filtered = filter === 'all' 
@@ -190,13 +289,60 @@
       card.addEventListener('click', function() {
         const idx = parseInt(this.dataset.matchIndex);
         const grade = this.dataset.grade;
-        // Cari data match
         const matchData = allMatches.find((m, i) => i === idx && m.grade === grade);
         if (matchData) {
           openModal(matchData, idx, grade);
         }
       });
     });
+
+    // Render bracket illustration setelah card
+    renderBracketIllustration();
+  }
+
+  // ==============================================================
+  // COUNTDOWN REAL-TIME
+  // ==============================================================
+  function startRealTimeCountdown(matchDate, displayId) {
+    // Stop existing interval untuk display ini
+    if (countdownIntervals[displayId]) {
+      clearInterval(countdownIntervals[displayId]);
+      delete countdownIntervals[displayId];
+    }
+
+    const display = document.getElementById(displayId);
+    if (!display) return;
+
+    function updateCountdown() {
+      const now = new Date();
+      const diff = matchDate - now;
+
+      if (diff <= 0) {
+        display.textContent = '⏰ PERTANDINGAN DIMULAI!';
+        display.className = 'countdown-display ended';
+        if (countdownIntervals[displayId]) {
+          clearInterval(countdownIntervals[displayId]);
+          delete countdownIntervals[displayId];
+        }
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      let text = '';
+      if (days > 0) text += `${days}d `;
+      if (hours > 0 || days > 0) text += `${String(hours).padStart(2, '0')}h `;
+      text += `${String(minutes).padStart(2, '0')}m ${String(seconds).padStart(2, '0')}s`;
+      
+      display.textContent = text;
+      display.className = 'countdown-display';
+    }
+
+    updateCountdown();
+    countdownIntervals[displayId] = setInterval(updateCountdown, 1000);
   }
 
   // ==============================================================
@@ -215,6 +361,17 @@
     const resultParts = match.result ? match.result.split(':') : ['0', '0'];
     const scoreA = resultParts[0] || '0';
     const scoreB = resultParts[1] || '0';
+
+    // Parse tanggal untuk countdown
+    const matchDate = parseMatchDate(match.date, match.time);
+    const dateStr = matchDate ? matchDate.toLocaleString('id-ID', { 
+      weekday: 'long', 
+      day: 'numeric', 
+      month: 'long', 
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    }) : 'Tanggal tidak valid';
 
     modalBody.innerHTML = `
       <div class="modal-match-title">🏸 Pertandingan Grade ${match.grade}</div>
@@ -239,16 +396,11 @@
         </span>
       </div>
 
-      <!-- COUNTDOWN -->
+      <!-- COUNTDOWN REAL-TIME -->
       <div class="countdown-section">
-        <div class="label">⏱️ COUNTDOWN</div>
-        <div class="countdown-display" id="countdownDisplay">00:00</div>
-        <div class="countdown-controls">
-          <button class="countdown-btn" onclick="window.startCountdown(5)">⏳ 5 Menit</button>
-          <button class="countdown-btn" onclick="window.startCountdown(10)">⏳ 10 Menit</button>
-          <button class="countdown-btn" onclick="window.startCountdown(15)">⏳ 15 Menit</button>
-          <button class="countdown-btn danger" onclick="window.stopCountdown()">⏹ Stop</button>
-        </div>
+        <div class="label">⏱️ COUNTDOWN MENUJU PERTANDINGAN</div>
+        <div class="countdown-display" id="countdownModal">--</div>
+        <div class="countdown-info">🗓️ ${dateStr}</div>
       </div>
 
       <!-- HASIL PERTANDINGAN (STATIS) -->
@@ -282,56 +434,24 @@
           </div>
         </div>
         <div class="poll-total">Total suara: ${totalVotes}</div>
+        <div class="poll-note">💡 Polling tersimpan di browser Anda (localStorage)</div>
       </div>
     `;
+
+    // Start countdown real-time
+    if (matchDate) {
+      startRealTimeCountdown(matchDate, 'countdownModal');
+    } else {
+      const display = document.getElementById('countdownModal');
+      if (display) {
+        display.textContent = '⏳ Tanggal tidak valid';
+        display.className = 'countdown-display ended';
+      }
+    }
 
     // Tampilkan modal
     modal.style.display = 'block';
     document.body.style.overflow = 'hidden';
-  }
-
-  // ==============================================================
-  // COUNTDOWN FUNGSI (di-expose ke window)
-  // ==============================================================
-  window.startCountdown = function(minutes) {
-    stopCountdown();
-    let totalSeconds = minutes * 60;
-    const display = document.getElementById('countdownDisplay');
-    if (!display) return;
-
-    activeCountdown = totalSeconds;
-    updateCountdownDisplay(display, totalSeconds);
-
-    countdownInterval = setInterval(() => {
-      totalSeconds--;
-      activeCountdown = totalSeconds;
-      updateCountdownDisplay(display, totalSeconds);
-      if (totalSeconds <= 0) {
-        stopCountdown();
-        display.textContent = '⏰ WAKTU HABIS!';
-        display.style.color = '#c0392b';
-      }
-    }, 1000);
-  };
-
-  window.stopCountdown = function() {
-    if (countdownInterval) {
-      clearInterval(countdownInterval);
-      countdownInterval = null;
-    }
-    const display = document.getElementById('countdownDisplay');
-    if (display) {
-      display.textContent = '00:00';
-      display.style.color = '#1a3a5f';
-    }
-    activeCountdown = null;
-  };
-
-  function updateCountdownDisplay(display, seconds) {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    display.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
-    display.style.color = seconds < 60 ? '#c0392b' : '#1a3a5f';
   }
 
   // ==============================================================
@@ -361,8 +481,16 @@
   function closeModal() {
     modal.style.display = 'none';
     document.body.style.overflow = 'auto';
-    stopCountdown();
+    // Hentikan semua countdown interval
+    Object.keys(countdownIntervals).forEach(key => {
+      clearInterval(countdownIntervals[key]);
+      delete countdownIntervals[key];
+    });
   }
+
+  const modal = document.getElementById('matchModal');
+  const modalBody = document.getElementById('modalBody');
+  const modalClose = document.querySelector('.modal-close');
 
   modalClose.addEventListener('click', closeModal);
   window.addEventListener('click', function(e) {
@@ -371,7 +499,6 @@
     }
   });
 
-  // Escape key
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
       closeModal();
@@ -381,6 +508,9 @@
   // ==============================================================
   // FILTER HANDLER
   // ==============================================================
+  const container = document.getElementById('bracketContainer');
+  const gradeBtns = document.querySelectorAll('.grade-btn');
+
   function setFilter(grade) {
     currentFilter = grade;
     gradeBtns.forEach(btn => {
@@ -402,24 +532,40 @@
   renderBracket('all');
 
   // ==============================================================
-  // CARA MENAMPILKAN GAMBAR (contoh)
+  // TENTANG POLLING UNTUK PENGGUNA LAIN
   // ==============================================================
   /*
-    Untuk menampilkan gambar di website, Anda bisa:
+    POLLING UNTUK PENGGUNA LAIN:
     
-    1. Taruh file gambar di folder yang sama dengan file HTML
-    2. Tambahkan tag <img> di HTML atau di dalam modal
+    Saat ini polling menggunakan localStorage yang hanya tersimpan di browser 
+    masing-masing pengguna. Untuk bisa terintegrasi dengan pengguna lain, 
+    Anda memerlukan server backend.
+
+    CARA INTEGRASI DENGAN PENGGUNA LAIN:
     
-    Contoh:
-    <img src="logo-swif.png" alt="Logo SWIF ASIA" style="max-width:200px;" />
+    1. Gunakan database (misal: Firebase, Supabase, atau MySQL)
+    2. Buat API endpoint untuk menyimpan dan mengambil data polling
+    3. Ganti fungsi getPollData() dan savePollData() dengan panggilan API
     
-    atau di dalam modal:
-    <div style="text-align:center; margin:1rem 0;">
-      <img src="banner-turnamen.jpg" alt="Banner Turnamen" style="max-width:100%; border-radius:12px;" />
-    </div>
+    Contoh dengan Firebase (Realtime Database):
     
-    Anda juga bisa menggunakan gambar dari URL:
-    <img src="https://example.com/gambar.jpg" alt="Gambar" />
+    // Simpan polling
+    function savePollData(matchId, data) {
+      firebase.database().ref('polls/' + matchId).set(data);
+    }
+    
+    // Ambil polling
+    function getPollData(matchId) {
+      return firebase.database().ref('polls/' + matchId).once('value')
+        .then(snapshot => snapshot.val() || { teamA: 0, teamB: 0 });
+    }
+    
+    Dengan backend, semua pengguna akan melihat polling yang sama secara real-time!
+    
+    Untuk polling real-time antar pengguna, gunakan WebSocket atau Firebase 
+    Realtime Database yang bisa sinkron secara otomatis.
   */
-  console.log('✅ Website siap! Untuk menampilkan gambar, tambahkan tag <img> di HTML atau di modalBody.');
+  console.log('✅ Website siap!');
+  console.log('📊 Polling menggunakan localStorage (hanya untuk satu browser)');
+  console.log('💡 Untuk polling multi-user, gunakan backend seperti Firebase atau Supabase');
 })();
