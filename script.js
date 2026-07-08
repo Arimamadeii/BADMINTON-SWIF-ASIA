@@ -1,29 +1,29 @@
 // ===== script.js =====
 (function() {
   // --------------------------------------------------------------
-  // DATA – GRADE A (16 teams) & GRADE B (8 teams)
+  // DATA – GRADE A (16 teams) berdasarkan screenshot terbaru
   // Setiap tim terdiri dari 2 orang (double)
   // --------------------------------------------------------------
   const allMatches = [
-    // ===== GRADE A (16 tim) =====
-    { grade: 'A', player1: 'DENI', player2: 'WILDAN', day: 'SENIN', date: '13-JULI', time: '19:00' },
-    { grade: 'A', player1: 'JAENAL', player2: 'ALDI', day: 'SENIN', date: '3-AUG', time: '18:30' },
-    { grade: 'A', player1: 'ARIF_S', player2: 'TRI_W', day: 'SENIN', date: '20-JULI', time: '19:00' },
-    { grade: 'A', player1: 'DADANG', player2: 'KARTID', day: 'SENIN', date: '10-AUG', time: '18:00' },
-    { grade: 'A', player1: 'ARIF_ELC', player2: 'MEGGY', day: 'SENIN', date: '13-JULI', time: '19:30' },
-    { grade: 'A', player1: 'BILLY', player2: 'NABIL', day: 'SENIN', date: '3-AUG', time: '19:00' },
-    { grade: 'A', player1: 'YINA', player2: 'LULUK', day: 'SENIN', date: '20-JULI', time: '19:30' },
-    { grade: 'A', player1: 'AWAY', player2: 'FAISAL', day: 'SENIN', date: '10-AUG', time: '18:30' },
-    { grade: 'A', player1: 'RIAN', player2: 'FARAH', day: 'SENIN', date: '14-JULI', time: '17:00' },
-    { grade: 'A', player1: 'GUNTUR', player2: 'DEWI', day: 'SENIN', date: '4-AUG', time: '18:45' },
-    { grade: 'A', player1: 'HENDRA', player2: 'SARI', day: 'SENIN', date: '21-JULI', time: '19:15' },
-    { grade: 'A', player1: 'BAGAS', player2: 'RINA', day: 'SENIN', date: '11-AUG', time: '17:30' },
-    { grade: 'A', player1: 'DIMAS', player2: 'PUTRI', day: 'SENIN', date: '18-JULI', time: '18:00' },
-    { grade: 'A', player1: 'RANGGA', player2: 'NINA', day: 'SENIN', date: '25-JULI', time: '19:00' },
-    { grade: 'A', player1: 'ADIT', player2: 'SUSI', day: 'SENIN', date: '8-AUG', time: '16:45' },
-    { grade: 'A', player1: 'TONI', player2: 'MIRA', day: 'SENIN', date: '15-JULI', time: '18:15' },
+    // ===== GRADE A (16 tim) dari data screenshot =====
+    { grade: 'A', player1: 'KARMIN', player2: 'AZIS', day: 'SENIN', date: '13-JULI', time: '17:30' },
+    { grade: 'A', player1: 'IDRIS', player2: 'BINTANG', day: 'SENIN', date: '27-JULI', time: '18:30' },
+    { grade: 'A', player1: 'GILANG', player2: 'PAK AEP', day: 'SENIN', date: '13-JULI', time: '18:00' },
+    { grade: 'A', player1: 'ZAELANI', player2: 'HANDI', day: 'SENIN', date: '3-AUG', time: '18:00' },
+    { grade: 'A', player1: 'MAKMUR', player2: 'NUNUS', day: 'SENIN', date: '13-JULI', time: '18:30' },
+    { grade: 'A', player1: 'ESTHU', player2: 'TEGAR', day: 'SENIN', date: '27-JULI', time: '19:00' },
+    { grade: 'A', player1: 'ADI', player2: 'AGIYAN', day: 'SENIN', date: '20-JULI', time: '17:30' },
+    { grade: 'A', player1: 'HARJANTO', player2: 'DEDI', day: 'SENIN', date: '10-AUG', time: '17:30' },
+    { grade: 'A', player1: 'BERTUS', player2: 'ENGKI', day: 'SENIN', date: '20-JULI', time: '18:00' },
+    { grade: 'A', player1: 'AFIF', player2: 'RAKA', day: 'SENIN', date: '27-JULI', time: '19:30' },
+    { grade: 'A', player1: 'DANI', player2: 'SYAHRI', day: 'SENIN', date: '20-JULI', time: '18:30' },
+    { grade: 'A', player1: 'ONI .T', player2: 'NDIVAL', day: 'SENIN', date: '3-AUG', time: '19:30' },
+    { grade: 'A', player1: 'TATA', player2: 'SIDIG', day: 'SENIN', date: '27-JULI', time: '17:30' },
+    { grade: 'A', player1: 'BAREND', player2: 'UJANG', day: 'SENIN', date: '3-AUG', time: '17:30' },
+    { grade: 'A', player1: 'RIDUL', player2: 'AGUS', day: 'SENIN', date: '27-JULI', time: '18:00' },
+    { grade: 'A', player1: 'ENTIS', player2: 'PAK YADI', day: 'SENIN', date: '3-AUG', time: '17:30' },
 
-    // ===== GRADE B (8 tim) =====
+    // ===== GRADE B (8 tim) – tetap dari data sebelumnya =====
     { grade: 'B', player1: 'RUDI', player2: 'SUSANTO', day: 'SENIN', date: '14-JULI', time: '17:30' },
     { grade: 'B', player1: 'TEGUH', player2: 'JOKO', day: 'SENIN', date: '21-JULI', time: '18:00' },
     { grade: 'B', player1: 'BAMBANG', player2: 'PUTRI', day: 'SENIN', date: '4-AUG', time: '17:45' },
@@ -36,9 +36,6 @@
 
   // state
   let currentFilter = 'all';
-  // simpan status eliminasi per match (index -> boolean)
-  // key: "matchIndex" => true jika tereliminasi
-  const eliminatedMap = new Map();
 
   // DOM refs
   const container = document.getElementById('bracketContainer');
@@ -58,33 +55,24 @@
     }
 
     let html = '';
-    // gunakan index global untuk mapping eliminasi
     filtered.forEach((m, idx) => {
-      // cari index asli di allMatches agar konsisten
-      const globalIdx = allMatches.indexOf(m);
-      const isEliminated = eliminatedMap.get(globalIdx) || false;
-
       const p1 = m.player1?.trim() || '—';
       const p2 = m.player2?.trim() || '—';
       const gradeClass = m.grade === 'A' ? 'grade-a' : 'grade-b';
       const uniqueId = `match-${m.grade}-${idx}-${Date.now()}-${Math.random().toString(36).substr(2,4)}`;
 
-      // class untuk eliminated
-      const elimClass1 = isEliminated ? 'eliminated' : '';
-      const elimClass2 = isEliminated ? 'eliminated' : '';
-
       html += `
-        <div class="match-card" data-match-id="${uniqueId}" data-global-index="${globalIdx}">
+        <div class="match-card" data-match-id="${uniqueId}">
           <span class="grade-badge ${gradeClass}">GRADE ${m.grade}</span>
           <div class="player-pair">
-            <div class="pair-line ${elimClass1}">
+            <div class="pair-line">
               <span class="player-name">${p1}</span>
               <span class="vs-badge">VS</span>
               <span class="player-name">${p2}</span>
             </div>
           </div>
 
-          <!-- RESULT INPUT + TOMBOL ELIMINASI -->
+          <!-- RESULT INPUT (hanya simpan skor, tanpa eliminasi) -->
           <div class="result-area">
             <div class="result-input-group">
               <label>SKOR</label>
@@ -95,17 +83,7 @@
             <button class="action-btn save-score-btn" data-id="${uniqueId}">SIMPAN</button>
           </div>
 
-          <!-- TOMBOL ELIMINASI / PULIHKAN -->
-          <div style="display:flex; gap:0.5rem; margin-top:0.3rem;">
-            <button class="action-btn eliminate-btn" data-id="${uniqueId}" data-action="eliminate" ${isEliminated ? 'disabled style="opacity:0.5;"' : ''}>
-              ⚫ ELIMINASI
-            </button>
-            <button class="action-btn restore-btn" data-id="${uniqueId}" data-action="restore" ${!isEliminated ? 'disabled style="opacity:0.5;"' : ''}>
-              🔄 PULIHKAN
-            </button>
-          </div>
-
-          <!-- META -->
+          <!-- META (day/date/time) -->
           <div class="match-meta">
             <span class="day">${m.day || 'SENIN'}</span>
             <span class="datetime">
@@ -119,8 +97,7 @@
 
     container.innerHTML = html;
 
-    // ----- ATTACH EVENT LISTENERS -----
-    // 1. Simpan skor
+    // ----- ATTACH EVENT LISTENER untuk SIMPAN SKOR -----
     document.querySelectorAll('.save-score-btn').forEach(btn => {
       btn.addEventListener('click', function(e) {
         const id = this.dataset.id;
@@ -130,29 +107,6 @@
         const val1 = input1?.value?.trim() || '0';
         const val2 = input2?.value?.trim() || '0';
         alert(`✅ Skor disimpan: ${val1} : ${val2}`);
-      });
-    });
-
-    // 2. Eliminasi / Pulihkan
-    document.querySelectorAll('.eliminate-btn').forEach(btn => {
-      btn.addEventListener('click', function(e) {
-        const card = this.closest('.match-card');
-        const globalIdx = parseInt(card.dataset.globalIndex, 10);
-        if (!isNaN(globalIdx)) {
-          eliminatedMap.set(globalIdx, true);
-          renderBracket(currentFilter); // re-render
-        }
-      });
-    });
-
-    document.querySelectorAll('.restore-btn').forEach(btn => {
-      btn.addEventListener('click', function(e) {
-        const card = this.closest('.match-card');
-        const globalIdx = parseInt(card.dataset.globalIndex, 10);
-        if (!isNaN(globalIdx)) {
-          eliminatedMap.delete(globalIdx);
-          renderBracket(currentFilter);
-        }
       });
     });
   }
