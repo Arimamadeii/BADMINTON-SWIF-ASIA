@@ -1,37 +1,135 @@
 // ===== script.js =====
 (function() {
   // --------------------------------------------------------------
-  // DATA – GRADE A (16 teams) berdasarkan screenshot terbaru
-  // Setiap tim terdiri dari 2 orang (double)
+  // DATA – GRADE A (16 teams) & GRADE B (8 teams)
+  // Setiap tim terdiri dari 2 orang (double/ganda)
+  // Format: { teamA: [nama1, nama2], teamB: [nama1, nama2] }
   // --------------------------------------------------------------
   const allMatches = [
     // ===== GRADE A (16 tim) dari data screenshot =====
-    { grade: 'A', player1: 'KARMIN', player2: 'AZIS', day: 'SENIN', date: '13-JULI', time: '17:30' },
-    { grade: 'A', player1: 'IDRIS', player2: 'BINTANG', day: 'SENIN', date: '27-JULI', time: '18:30' },
-    { grade: 'A', player1: 'GILANG', player2: 'PAK AEP', day: 'SENIN', date: '13-JULI', time: '18:00' },
-    { grade: 'A', player1: 'ZAELANI', player2: 'HANDI', day: 'SENIN', date: '3-AUG', time: '18:00' },
-    { grade: 'A', player1: 'MAKMUR', player2: 'NUNUS', day: 'SENIN', date: '13-JULI', time: '18:30' },
-    { grade: 'A', player1: 'ESTHU', player2: 'TEGAR', day: 'SENIN', date: '27-JULI', time: '19:00' },
-    { grade: 'A', player1: 'ADI', player2: 'AGIYAN', day: 'SENIN', date: '20-JULI', time: '17:30' },
-    { grade: 'A', player1: 'HARJANTO', player2: 'DEDI', day: 'SENIN', date: '10-AUG', time: '17:30' },
-    { grade: 'A', player1: 'BERTUS', player2: 'ENGKI', day: 'SENIN', date: '20-JULI', time: '18:00' },
-    { grade: 'A', player1: 'AFIF', player2: 'RAKA', day: 'SENIN', date: '27-JULI', time: '19:30' },
-    { grade: 'A', player1: 'DANI', player2: 'SYAHRI', day: 'SENIN', date: '20-JULI', time: '18:30' },
-    { grade: 'A', player1: 'ONI .T', player2: 'NDIVAL', day: 'SENIN', date: '3-AUG', time: '19:30' },
-    { grade: 'A', player1: 'TATA', player2: 'SIDIG', day: 'SENIN', date: '27-JULI', time: '17:30' },
-    { grade: 'A', player1: 'BAREND', player2: 'UJANG', day: 'SENIN', date: '3-AUG', time: '17:30' },
-    { grade: 'A', player1: 'RIDUL', player2: 'AGUS', day: 'SENIN', date: '27-JULI', time: '18:00' },
-    { grade: 'A', player1: 'ENTIS', player2: 'PAK YADI', day: 'SENIN', date: '3-AUG', time: '17:30' },
+    { 
+      grade: 'A', 
+      teamA: ['KARMIN', 'AZIS'], 
+      teamB: ['IDRIS', 'BINTANG'], 
+      day: 'SENIN', date: '13-JULI', time: '17:30' 
+    },
+    { 
+      grade: 'A', 
+      teamA: ['GILANG', 'PAK AEP'], 
+      teamB: ['ZAELANI', 'HANDI'], 
+      day: 'SENIN', date: '13-JULI', time: '18:00' 
+    },
+    { 
+      grade: 'A', 
+      teamA: ['MAKMUR', 'NUNUS'], 
+      teamB: ['ESTHU', 'TEGAR'], 
+      day: 'SENIN', date: '13-JULI', time: '18:30' 
+    },
+    { 
+      grade: 'A', 
+      teamA: ['ADI', 'AGIYAN'], 
+      teamB: ['HARJANTO', 'DEDI'], 
+      day: 'SENIN', date: '20-JULI', time: '17:30' 
+    },
+    { 
+      grade: 'A', 
+      teamA: ['BERTUS', 'ENGKI'], 
+      teamB: ['AFIF', 'RAKA'], 
+      day: 'SENIN', date: '20-JULI', time: '18:00' 
+    },
+    { 
+      grade: 'A', 
+      teamA: ['DANI', 'SYAHRI'], 
+      teamB: ['ONI .T', 'NDIVAL'], 
+      day: 'SENIN', date: '20-JULI', time: '18:30' 
+    },
+    { 
+      grade: 'A', 
+      teamA: ['TATA', 'SIDIG'], 
+      teamB: ['BAREND', 'UJANG'], 
+      day: 'SENIN', date: '27-JULI', time: '17:30' 
+    },
+    { 
+      grade: 'A', 
+      teamA: ['RIDUL', 'AGUS'], 
+      teamB: ['ENTIS', 'PAK YADI'], 
+      day: 'SENIN', date: '27-JULI', time: '18:00' 
+    },
+    // Tambahan untuk melengkapi 16 tim Grade A (8 pertandingan)
+    { 
+      grade: 'A', 
+      teamA: ['DODI', 'SANDI'], 
+      teamB: ['RENDI', 'FARID'], 
+      day: 'SENIN', date: '27-JULI', time: '18:30' 
+    },
+    { 
+      grade: 'A', 
+      teamA: ['ANDRE', 'TITO'], 
+      teamB: ['RONI', 'DONI'], 
+      day: 'SENIN', date: '3-AUG', time: '17:30' 
+    },
+    { 
+      grade: 'A', 
+      teamA: ['BUDI', 'JOKO'], 
+      teamB: ['SUSI', 'DEWI'], 
+      day: 'SENIN', date: '3-AUG', time: '18:00' 
+    },
+    { 
+      grade: 'A', 
+      teamA: ['RINA', 'SARI'], 
+      teamB: ['TINI', 'NINA'], 
+      day: 'SENIN', date: '3-AUG', time: '18:30' 
+    },
+    { 
+      grade: 'A', 
+      teamA: ['AGUS', 'HARIS'], 
+      teamB: ['RUDI', 'BAMBANG'], 
+      day: 'SENIN', date: '10-AUG', time: '17:30' 
+    },
+    { 
+      grade: 'A', 
+      teamA: ['FIKRI', 'REZA'], 
+      teamB: ['DIMAS', 'RANGGA'], 
+      day: 'SENIN', date: '10-AUG', time: '18:00' 
+    },
+    { 
+      grade: 'A', 
+      teamA: ['HENDRA', 'TEGUH'], 
+      teamB: ['GUNTUR', 'BAGAS'], 
+      day: 'SENIN', date: '10-AUG', time: '18:30' 
+    },
+    { 
+      grade: 'A', 
+      teamA: ['JORDI', 'ARIF'], 
+      teamB: ['FARAH', 'LULU'], 
+      day: 'SENIN', date: '17-AUG', time: '17:30' 
+    },
 
-    // ===== GRADE B (8 tim) – tetap dari data sebelumnya =====
-    { grade: 'B', player1: 'RUDI', player2: 'SUSANTO', day: 'SENIN', date: '14-JULI', time: '17:30' },
-    { grade: 'B', player1: 'TEGUH', player2: 'JOKO', day: 'SENIN', date: '21-JULI', time: '18:00' },
-    { grade: 'B', player1: 'BAMBANG', player2: 'PUTRI', day: 'SENIN', date: '4-AUG', time: '17:45' },
-    { grade: 'B', player1: 'DIMAS', player2: 'RINA', day: 'SENIN', date: '11-AUG', time: '18:15' },
-    { grade: 'B', player1: 'AGUS', player2: 'SARI', day: 'SENIN', date: '18-JULI', time: '19:10' },
-    { grade: 'B', player1: 'INDAH', player2: 'BAYU', day: 'SENIN', date: '25-JULI', time: '18:45' },
-    { grade: 'B', player1: 'HENDRA', player2: 'NOVA', day: 'SENIN', date: '8-AUG', time: '16:50' },
-    { grade: 'B', player1: 'FIKRI', player2: 'ANISA', day: 'SENIN', date: '1-AUG', time: '17:20' }
+    // ===== GRADE B (8 tim / 4 pertandingan) =====
+    { 
+      grade: 'B', 
+      teamA: ['RUDI', 'SUSANTO'], 
+      teamB: ['TEGUH', 'JOKO'], 
+      day: 'SENIN', date: '14-JULI', time: '17:30' 
+    },
+    { 
+      grade: 'B', 
+      teamA: ['BAMBANG', 'PUTRI'], 
+      teamB: ['DIMAS', 'RINA'], 
+      day: 'SENIN', date: '21-JULI', time: '18:00' 
+    },
+    { 
+      grade: 'B', 
+      teamA: ['AGUS', 'SARI'], 
+      teamB: ['INDAH', 'BAYU'], 
+      day: 'SENIN', date: '28-JULI', time: '17:45' 
+    },
+    { 
+      grade: 'B', 
+      teamA: ['HENDRA', 'NOVA'], 
+      teamB: ['FIKRI', 'ANISA'], 
+      day: 'SENIN', date: '4-AUG', time: '18:15' 
+    }
   ];
 
   // state
@@ -56,23 +154,42 @@
 
     let html = '';
     filtered.forEach((m, idx) => {
-      const p1 = m.player1?.trim() || '—';
-      const p2 = m.player2?.trim() || '—';
+      const teamA1 = m.teamA[0] || '—';
+      const teamA2 = m.teamA[1] || '—';
+      const teamB1 = m.teamB[0] || '—';
+      const teamB2 = m.teamB[1] || '—';
       const gradeClass = m.grade === 'A' ? 'grade-a' : 'grade-b';
       const uniqueId = `match-${m.grade}-${idx}-${Date.now()}-${Math.random().toString(36).substr(2,4)}`;
 
       html += `
         <div class="match-card" data-match-id="${uniqueId}">
           <span class="grade-badge ${gradeClass}">GRADE ${m.grade}</span>
-          <div class="player-pair">
-            <div class="pair-line">
-              <span class="player-name">${p1}</span>
-              <span class="vs-badge">VS</span>
-              <span class="player-name">${p2}</span>
+          
+          <div class="match-teams">
+            <!-- TEAM A -->
+            <div class="team-block team-a">
+              <span class="team-label">⚫ TEAM A</span>
+              <div class="team-players">
+                <span class="player-name">${teamA1}</span>
+                <span style="color:#8aa0b8; font-weight:300;">&</span>
+                <span class="player-name">${teamA2}</span>
+              </div>
+            </div>
+            
+            <div class="vs-divider">⚡ VS ⚡</div>
+            
+            <!-- TEAM B -->
+            <div class="team-block team-b">
+              <span class="team-label">⚪ TEAM B</span>
+              <div class="team-players">
+                <span class="player-name">${teamB1}</span>
+                <span style="color:#8aa0b8; font-weight:300;">&</span>
+                <span class="player-name">${teamB2}</span>
+              </div>
             </div>
           </div>
 
-          <!-- RESULT INPUT (hanya simpan skor, tanpa eliminasi) -->
+          <!-- RESULT INPUT -->
           <div class="result-area">
             <div class="result-input-group">
               <label>SKOR</label>
@@ -83,7 +200,7 @@
             <button class="action-btn save-score-btn" data-id="${uniqueId}">SIMPAN</button>
           </div>
 
-          <!-- META (day/date/time) -->
+          <!-- META -->
           <div class="match-meta">
             <span class="day">${m.day || 'SENIN'}</span>
             <span class="datetime">
@@ -97,7 +214,7 @@
 
     container.innerHTML = html;
 
-    // ----- ATTACH EVENT LISTENER untuk SIMPAN SKOR -----
+    // ATTACH EVENT LISTENER untuk SIMPAN SKOR
     document.querySelectorAll('.save-score-btn').forEach(btn => {
       btn.addEventListener('click', function(e) {
         const id = this.dataset.id;
@@ -106,7 +223,7 @@
         const input2 = card.querySelector(`input[id^="score2_${id}"]`);
         const val1 = input1?.value?.trim() || '0';
         const val2 = input2?.value?.trim() || '0';
-        alert(`✅ Skor disimpan: ${val1} : ${val2}`);
+        alert(`✅ Skor disimpan:\nTEAM A: ${val1}\nTEAM B: ${val2}`);
       });
     });
   }
