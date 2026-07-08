@@ -1,12 +1,11 @@
 // ===== script.js =====
 (function() {
-  // --------------------------------------------------------------
-  // DATA – GRADE A (16 teams) & GRADE B (8 teams)
+  // ==============================================================
+  // DATA PERTANDINGAN – GRADE A (16 tim) & GRADE B (8 tim)
   // Setiap tim terdiri dari 2 orang (double/ganda)
-  // Format: { teamA: [nama1, nama2], teamB: [nama1, nama2] }
-  // --------------------------------------------------------------
+  // ==============================================================
   const allMatches = [
-    // ===== GRADE A (16 tim) dari data screenshot =====
+    // ===== GRADE A (16 tim / 8 pertandingan) =====
     { 
       grade: 'A', 
       teamA: ['KARMIN', 'AZIS'], 
@@ -55,55 +54,6 @@
       teamB: ['ENTIS', 'PAK YADI'], 
       day: 'SENIN', date: '27-JULI', time: '18:00' 
     },
-    // Tambahan untuk melengkapi 16 tim Grade A (8 pertandingan)
-    { 
-      grade: 'A', 
-      teamA: ['DODI', 'SANDI'], 
-      teamB: ['RENDI', 'FARID'], 
-      day: 'SENIN', date: '27-JULI', time: '18:30' 
-    },
-    { 
-      grade: 'A', 
-      teamA: ['ANDRE', 'TITO'], 
-      teamB: ['RONI', 'DONI'], 
-      day: 'SENIN', date: '3-AUG', time: '17:30' 
-    },
-    { 
-      grade: 'A', 
-      teamA: ['BUDI', 'JOKO'], 
-      teamB: ['SUSI', 'DEWI'], 
-      day: 'SENIN', date: '3-AUG', time: '18:00' 
-    },
-    { 
-      grade: 'A', 
-      teamA: ['RINA', 'SARI'], 
-      teamB: ['TINI', 'NINA'], 
-      day: 'SENIN', date: '3-AUG', time: '18:30' 
-    },
-    { 
-      grade: 'A', 
-      teamA: ['AGUS', 'HARIS'], 
-      teamB: ['RUDI', 'BAMBANG'], 
-      day: 'SENIN', date: '10-AUG', time: '17:30' 
-    },
-    { 
-      grade: 'A', 
-      teamA: ['FIKRI', 'REZA'], 
-      teamB: ['DIMAS', 'RANGGA'], 
-      day: 'SENIN', date: '10-AUG', time: '18:00' 
-    },
-    { 
-      grade: 'A', 
-      teamA: ['HENDRA', 'TEGUH'], 
-      teamB: ['GUNTUR', 'BAGAS'], 
-      day: 'SENIN', date: '10-AUG', time: '18:30' 
-    },
-    { 
-      grade: 'A', 
-      teamA: ['JORDI', 'ARIF'], 
-      teamB: ['FARAH', 'LULU'], 
-      day: 'SENIN', date: '17-AUG', time: '17:30' 
-    },
 
     // ===== GRADE B (8 tim / 4 pertandingan) =====
     { 
@@ -132,16 +82,16 @@
     }
   ];
 
-  // state
+  // ==============================================================
+  // STATE & DOM
+  // ==============================================================
   let currentFilter = 'all';
-
-  // DOM refs
   const container = document.getElementById('bracketContainer');
   const gradeBtns = document.querySelectorAll('.grade-btn');
 
-  // --------------------------------------------------------------
-  // RENDER
-  // --------------------------------------------------------------
+  // ==============================================================
+  // RENDER FUNGSI
+  // ==============================================================
   function renderBracket(filter) {
     const filtered = filter === 'all' 
       ? allMatches 
@@ -159,7 +109,7 @@
       const teamB1 = m.teamB[0] || '—';
       const teamB2 = m.teamB[1] || '—';
       const gradeClass = m.grade === 'A' ? 'grade-a' : 'grade-b';
-      const uniqueId = `match-${m.grade}-${idx}-${Date.now()}-${Math.random().toString(36).substr(2,4)}`;
+      const uniqueId = `match-${m.grade}-${idx}-${Date.now()}-${Math.random().toString(36).substr(2,6)}`;
 
       html += `
         <div class="match-card" data-match-id="${uniqueId}">
@@ -168,10 +118,9 @@
           <div class="match-teams">
             <!-- TEAM A -->
             <div class="team-block team-a">
-              <span class="team-label">⚫ TEAM A</span>
+              <span class="team-label">TEAM A</span>
               <div class="team-players">
                 <span class="player-name">${teamA1}</span>
-                <span style="color:#8aa0b8; font-weight:300;">&</span>
                 <span class="player-name">${teamA2}</span>
               </div>
             </div>
@@ -180,27 +129,25 @@
             
             <!-- TEAM B -->
             <div class="team-block team-b">
-              <span class="team-label">⚪ TEAM B</span>
+              <span class="team-label">TEAM B</span>
               <div class="team-players">
                 <span class="player-name">${teamB1}</span>
-                <span style="color:#8aa0b8; font-weight:300;">&</span>
                 <span class="player-name">${teamB2}</span>
               </div>
             </div>
           </div>
 
-          <!-- RESULT INPUT -->
-          <div class="result-area">
-            <div class="result-input-group">
-              <label>SKOR</label>
-              <input type="text" id="score1_${uniqueId}" placeholder="0" maxlength="3" value="">
-              <span style="font-weight:300; color:#7b93af;">:</span>
-              <input type="text" id="score2_${uniqueId}" placeholder="0" maxlength="3" value="">
-            </div>
-            <button class="action-btn save-score-btn" data-id="${uniqueId}">SIMPAN</button>
+          <!-- ============================================= -->
+          <!-- INPUT SKOR – DISEMBUNYIKAN (display: none)    -->
+          <!-- Tetap di DOM untuk diedit nanti oleh developer -->
+          <!-- ============================================= -->
+          <div class="score-input-hidden">
+            <label>SKOR TEAM A: <input type="text" id="scoreA_${uniqueId}" value="0" /></label>
+            <label>SKOR TEAM B: <input type="text" id="scoreB_${uniqueId}" value="0" /></label>
+            <button class="save-score-btn" data-id="${uniqueId}">Simpan Skor</button>
           </div>
 
-          <!-- META -->
+          <!-- META (hari, tanggal, waktu) -->
           <div class="match-meta">
             <span class="day">${m.day || 'SENIN'}</span>
             <span class="datetime">
@@ -214,23 +161,28 @@
 
     container.innerHTML = html;
 
-    // ATTACH EVENT LISTENER untuk SIMPAN SKOR
+    // ==============================================================
+    // EVENT LISTENER UNTUK SIMPAN SKOR (tetap berfungsi di backend)
+    // ==============================================================
     document.querySelectorAll('.save-score-btn').forEach(btn => {
       btn.addEventListener('click', function(e) {
         const id = this.dataset.id;
         const card = this.closest('.match-card');
-        const input1 = card.querySelector(`input[id^="score1_${id}"]`);
-        const input2 = card.querySelector(`input[id^="score2_${id}"]`);
-        const val1 = input1?.value?.trim() || '0';
-        const val2 = input2?.value?.trim() || '0';
-        alert(`✅ Skor disimpan:\nTEAM A: ${val1}\nTEAM B: ${val2}`);
+        const inputA = card.querySelector(`input[id^="scoreA_${id}"]`);
+        const inputB = card.querySelector(`input[id^="scoreB_${id}"]`);
+        const valA = inputA?.value?.trim() || '0';
+        const valB = inputB?.value?.trim() || '0';
+        
+        // Simulasi penyimpanan (bisa diganti dengan localStorage / AJAX)
+        console.log(`✅ Skor disimpan untuk match ${id}:`, { teamA: valA, teamB: valB });
+        alert(`✅ Skor tersimpan!\nTEAM A: ${valA}\nTEAM B: ${valB}`);
       });
     });
   }
 
-  // --------------------------------------------------------------
-  // FILTER
-  // --------------------------------------------------------------
+  // ==============================================================
+  // FILTER HANDLER
+  // ==============================================================
   function setFilter(grade) {
     currentFilter = grade;
     gradeBtns.forEach(btn => {
@@ -246,8 +198,9 @@
     });
   });
 
-  // --------------------------------------------------------------
+  // ==============================================================
   // INIT
-  // --------------------------------------------------------------
+  // ==============================================================
   renderBracket('all');
+
 })();
