@@ -4,9 +4,7 @@
   // DATA PERTANDINGAN – LENGKAP SEMUA BABAK
   // ==============================================================
   const allMatches = [
-    // ==============================================================
-    // GRADE A - 16 BESAR (8 pertandingan)
-    // ==============================================================
+    // ===== GRADE A - 16 BESAR (8 pertandingan) =====
     { 
       grade: 'A', round: '16', 
       teamA: ['KARMIN', 'AZIS'], 
@@ -64,9 +62,7 @@
       result: '0:0'
     },
 
-    // ==============================================================
-    // GRADE A - 8 BESAR (4 pertandingan)
-    // ==============================================================
+    // ===== GRADE A - 8 BESAR (4 pertandingan) =====
     { 
       grade: 'A', round: '8',
       teamA: ['PEMENANG M1', 'PEMENANG M1'], 
@@ -96,9 +92,7 @@
       result: '0:0'
     },
 
-    // ==============================================================
-    // GRADE A - SEMIFINAL (2 pertandingan)
-    // ==============================================================
+    // ===== GRADE A - SEMIFINAL (2 pertandingan) =====
     { 
       grade: 'A', round: 'semifinal',
       teamA: ['PEMENANG Q1', 'PEMENANG Q1'], 
@@ -114,9 +108,7 @@
       result: '0:0'
     },
 
-    // ==============================================================
-    // GRADE A - FINAL (1 pertandingan)
-    // ==============================================================
+    // ===== GRADE A - FINAL =====
     { 
       grade: 'A', round: 'final',
       teamA: ['PEMENANG SF1', 'PEMENANG SF1'], 
@@ -125,9 +117,7 @@
       result: '0:0'
     },
 
-    // ==============================================================
-    // GRADE B - 8 BESAR (4 pertandingan)
-    // ==============================================================
+    // ===== GRADE B - 8 BESAR (4 pertandingan) =====
     { 
       grade: 'B', round: '8',
       teamA: ['RUDI', 'SUSANTO'], 
@@ -157,9 +147,7 @@
       result: '0:0'
     },
 
-    // ==============================================================
-    // GRADE B - SEMIFINAL (2 pertandingan)
-    // ==============================================================
+    // ===== GRADE B - SEMIFINAL =====
     { 
       grade: 'B', round: 'semifinal',
       teamA: ['PEMENANG M1', 'PEMENANG M1'], 
@@ -175,9 +163,7 @@
       result: '0:0'
     },
 
-    // ==============================================================
-    // GRADE B - FINAL (1 pertandingan)
-    // ==============================================================
+    // ===== GRADE B - FINAL =====
     { 
       grade: 'B', round: 'final',
       teamA: ['PEMENANG SF1', 'PEMENANG SF1'], 
@@ -195,7 +181,7 @@
   let countdownIntervals = {};
 
   // ==============================================================
-  // ROUND LABEL
+  // ROUND LABELS
   // ==============================================================
   const roundLabels = {
     '16': '16 BESAR',
@@ -210,68 +196,6 @@
     'semifinal': 'sf',
     'final': 'final'
   };
-
-  // ==============================================================
-  // RENDER BRACKET ILLUSTRATION
-  // ==============================================================
-  function renderBracketIllustration() {
-    ['A', 'B'].forEach(grade => {
-      const matches = allMatches.filter(m => m.grade === grade);
-      const tree = document.getElementById(`bracketTree${grade}`);
-      if (!tree) return;
-
-      // Urutkan berdasarkan round
-      const roundOrder = ['16', '8', 'semifinal', 'final'];
-      const sorted = [...matches].sort((a, b) => {
-        return roundOrder.indexOf(a.round) - roundOrder.indexOf(b.round);
-      });
-
-      let html = '';
-      sorted.forEach((m, idx) => {
-        const status = getMatchStatus(m);
-        const roundTag = roundLabels[m.round] || m.round;
-        const tagClass = m.round === 'semifinal' ? 'sf' : m.round === 'final' ? 'final' : '';
-        const result = m.result && m.result !== '0:0' ? m.result : '';
-
-        html += `
-          <div class="bracket-match-row">
-            <span class="round-tag ${tagClass}">${roundTag}</span>
-            <div class="match-teams-mini">
-              <span class="team">${m.teamA[0]}&${m.teamA[1]}</span>
-              <span class="vs-mini">VS</span>
-              <span class="team team-b">${m.teamB[0]}&${m.teamB[1]}</span>
-            </div>
-            ${result ? `<span class="match-result-mini">${result}</span>` : ''}
-            <span class="match-status ${status}">${status}</span>
-          </div>
-        `;
-      });
-      tree.innerHTML = html;
-    });
-  }
-
-  // ==============================================================
-  // GET MATCH STATUS
-  // ==============================================================
-  function getMatchStatus(match) {
-    if (match.result && match.result !== '0:0') {
-      return 'finished';
-    }
-    
-    const matchDate = parseMatchDate(match.date, match.time);
-    if (!matchDate) return 'upcoming';
-    
-    const now = new Date();
-    const diff = matchDate - now;
-    
-    if (diff < 0) {
-      return 'finished';
-    } else if (diff < 3600000) {
-      return 'live';
-    } else {
-      return 'upcoming';
-    }
-  }
 
   // ==============================================================
   // PARSE TANGGAL
@@ -308,7 +232,68 @@
   }
 
   // ==============================================================
-  // RENDER CARD MATCH
+  // GET MATCH STATUS
+  // ==============================================================
+  function getMatchStatus(match) {
+    if (match.result && match.result !== '0:0') {
+      return 'finished';
+    }
+    
+    const matchDate = parseMatchDate(match.date, match.time);
+    if (!matchDate) return 'upcoming';
+    
+    const now = new Date();
+    const diff = matchDate - now;
+    
+    if (diff < 0) {
+      return 'finished';
+    } else if (diff < 3600000) {
+      return 'live';
+    } else {
+      return 'upcoming';
+    }
+  }
+
+  // ==============================================================
+  // RENDER BRACKET ILLUSTRATION
+  // ==============================================================
+  function renderBracketIllustration() {
+    ['A', 'B'].forEach(grade => {
+      const matches = allMatches.filter(m => m.grade === grade);
+      const tree = document.getElementById(`bracketTree${grade}`);
+      if (!tree) return;
+
+      const roundOrder = ['16', '8', 'semifinal', 'final'];
+      const sorted = [...matches].sort((a, b) => {
+        return roundOrder.indexOf(a.round) - roundOrder.indexOf(b.round);
+      });
+
+      let html = '';
+      sorted.forEach((m) => {
+        const status = getMatchStatus(m);
+        const roundTag = roundLabels[m.round] || m.round;
+        const tagClass = m.round === 'semifinal' ? 'sf' : m.round === 'final' ? 'final' : '';
+        const result = m.result && m.result !== '0:0' ? m.result : '';
+
+        html += `
+          <div class="bracket-match-row">
+            <span class="round-tag ${tagClass}">${roundTag}</span>
+            <div class="match-teams-mini">
+              <span class="team">${m.teamA[0]}&${m.teamA[1]}</span>
+              <span class="vs-mini">VS</span>
+              <span class="team team-b">${m.teamB[0]}&${m.teamB[1]}</span>
+            </div>
+            ${result ? `<span class="match-result-mini">${result}</span>` : ''}
+            <span class="match-status ${status}">${status}</span>
+          </div>
+        `;
+      });
+      tree.innerHTML = html;
+    });
+  }
+
+  // ==============================================================
+  // RENDER BRACKET CARDS
   // ==============================================================
   function renderBracket(filter, round) {
     let filtered = filter === 'all' 
@@ -319,7 +304,6 @@
       filtered = filtered.filter(m => m.round === round);
     }
 
-    // Urutkan berdasarkan round
     const roundOrder = ['16', '8', 'semifinal', 'final'];
     filtered.sort((a, b) => {
       return roundOrder.indexOf(a.round) - roundOrder.indexOf(b.round);
@@ -331,7 +315,7 @@
     }
 
     let html = '';
-    filtered.forEach((m, idx) => {
+    filtered.forEach((m) => {
       const teamA1 = m.teamA[0] || '—';
       const teamA2 = m.teamA[1] || '—';
       const teamB1 = m.teamB[0] || '—';
@@ -339,10 +323,10 @@
       const gradeClass = m.grade === 'A' ? 'grade-a' : 'grade-b';
       const roundLabel = roundLabels[m.round] || m.round;
       const roundClass = roundBadgeClass[m.round] || '';
-      const uniqueId = `match-${m.grade}-${m.round}-${idx}`;
+      const uniqueId = `match-${m.grade}-${m.round}-${Date.now()}-${Math.random().toString(36).substr(2,4)}`;
 
       html += `
-        <div class="match-card" data-match-id="${uniqueId}" data-match-index="${idx}" data-grade="${m.grade}" data-round="${m.round}">
+        <div class="match-card" data-match-id="${uniqueId}" data-grade="${m.grade}" data-round="${m.round}">
           <span class="round-badge ${roundClass}">${roundLabel}</span>
           <span class="grade-badge ${gradeClass}">GRADE ${m.grade}</span>
           
@@ -397,12 +381,156 @@
   }
 
   // ==============================================================
+  // COUNTDOWN REAL-TIME
+  // ==============================================================
+  function startRealTimeCountdown(matchDate, displayId) {
+    if (countdownIntervals[displayId]) {
+      clearInterval(countdownIntervals[displayId]);
+      delete countdownIntervals[displayId];
+    }
+
+    const display = document.getElementById(displayId);
+    if (!display) return;
+
+    function updateCountdown() {
+      const now = new Date();
+      const diff = matchDate - now;
+
+      if (diff <= 0) {
+        display.textContent = '⏰ PERTANDINGAN DIMULAI!';
+        display.className = 'countdown-display ended';
+        if (countdownIntervals[displayId]) {
+          clearInterval(countdownIntervals[displayId]);
+          delete countdownIntervals[displayId];
+        }
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      let text = '';
+      if (days > 0) text += `${days}d `;
+      if (hours > 0 || days > 0) text += `${String(hours).padStart(2, '0')}h `;
+      text += `${String(minutes).padStart(2, '0')}m ${String(seconds).padStart(2, '0')}s`;
+      
+      display.textContent = text;
+      display.className = 'countdown-display';
+    }
+
+    updateCountdown();
+    countdownIntervals[displayId] = setInterval(updateCountdown, 1000);
+  }
+
+  // ==============================================================
   // MODAL
   // ==============================================================
   function openModal(match) {
-    // ... (sama seperti sebelumnya, dengan tambahan round info)
-    // Saya singkat karena panjang, tapi intinya sama
+    const teamAStr = match.teamA.join(' & ');
+    const teamBStr = match.teamB.join(' & ');
+    const roundLabel = roundLabels[match.round] || match.round;
+
+    const resultParts = match.result ? match.result.split(':') : ['0', '0'];
+    const scoreA = resultParts[0] || '0';
+    const scoreB = resultParts[1] || '0';
+
+    const matchDate = parseMatchDate(match.date, match.time);
+    const dateStr = matchDate ? matchDate.toLocaleString('id-ID', { 
+      weekday: 'long', 
+      day: 'numeric', 
+      month: 'long', 
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    }) : 'Tanggal tidak valid';
+
+    modalBody.innerHTML = `
+      <div class="modal-match-title">🏸 ${roundLabel} · Grade ${match.grade}</div>
+      
+      <div class="modal-teams">
+        <div class="modal-team">
+          <div class="team-label">TEAM A</div>
+          <div class="team-names">${teamAStr}</div>
+        </div>
+        <div class="modal-vs">⚡ VS ⚡</div>
+        <div class="modal-team">
+          <div class="team-label">TEAM B</div>
+          <div class="team-names">${teamBStr}</div>
+        </div>
+      </div>
+
+      <div class="match-meta" style="margin-bottom:0.8rem;">
+        <span class="day">${match.day || 'SENIN'}</span>
+        <span class="datetime">
+          <span>${match.date || '—'}</span>
+          <span>${match.time || '—'}</span>
+        </span>
+      </div>
+
+      <!-- COUNTDOWN -->
+      <div class="countdown-section">
+        <div class="label">⏱️ COUNTDOWN MENUJU PERTANDINGAN</div>
+        <div class="countdown-display" id="countdownModal">--</div>
+        <div class="countdown-info">🗓️ ${dateStr}</div>
+      </div>
+
+      <!-- HASIL PERTANDINGAN -->
+      <div class="result-section">
+        <div class="label">🏆 HASIL PERTANDINGAN</div>
+        <div class="result-display">
+          <span class="team-a-score">${scoreA}</span>
+          <span style="color:#8aa0b8; font-weight:300;"> : </span>
+          <span class="team-b-score">${scoreB}</span>
+        </div>
+        <div class="result-edit-note">✏️ Edit di file script.js (field "result")</div>
+      </div>
+    `;
+
+    // Start countdown
+    if (matchDate) {
+      startRealTimeCountdown(matchDate, 'countdownModal');
+    } else {
+      const display = document.getElementById('countdownModal');
+      if (display) {
+        display.textContent = '⏳ Tanggal tidak valid';
+        display.className = 'countdown-display ended';
+      }
+    }
+
+    modal.style.display = 'block';
+    document.body.style.overflow = 'hidden';
   }
+
+  // ==============================================================
+  // MODAL CLOSE
+  // ==============================================================
+  function closeModal() {
+    modal.style.display = 'none';
+    document.body.style.overflow = 'auto';
+    Object.keys(countdownIntervals).forEach(key => {
+      clearInterval(countdownIntervals[key]);
+      delete countdownIntervals[key];
+    });
+  }
+
+  const modal = document.getElementById('matchModal');
+  const modalBody = document.getElementById('modalBody');
+  const modalClose = document.querySelector('.modal-close');
+
+  modalClose.addEventListener('click', closeModal);
+  window.addEventListener('click', function(e) {
+    if (e.target === modal) {
+      closeModal();
+    }
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      closeModal();
+    }
+  });
 
   // ==============================================================
   // FILTER HANDLER
@@ -445,7 +573,8 @@
   // ==============================================================
   renderBracket('all', 'all');
 
-  console.log('✅ Website siap dengan semua babak!');
-  console.log('📌 Babak: 16 Besar → 8 Besar → Semifinal → Final');
-  console.log('💡 Untuk mengupdate nama pemenang, edit field teamA/teamB di data');
+  console.log('✅ Website siap dengan semua fitur!');
+  console.log('📌 Klik kartu pertandingan untuk melihat detail');
+  console.log('📌 Countdown berjalan otomatis berdasarkan tanggal pertandingan');
+  console.log('📌 Hasil pertandingan bisa diedit di field "result"');
 })();
