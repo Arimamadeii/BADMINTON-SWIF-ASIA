@@ -80,7 +80,7 @@ body {
 /* ----- BRACKET GRID ----- */
 .bracket {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 1.8rem;
   margin-top: 1rem;
 }
@@ -139,7 +139,6 @@ body {
   justify-content: space-between;
   padding: 0.3rem 0;
   border-bottom: 1px dashed #e6edf6;
-  transition: 0.2s;
 }
 
 .pair-line:last-of-type {
@@ -150,18 +149,6 @@ body {
   font-weight: 600;
   font-size: 1.05rem;
   color: #143450;
-  transition: 0.2s;
-}
-
-/* --- ELIMINATED (grey out) --- */
-.pair-line.eliminated .player-name {
-  color: #a0b8cf !important;
-  text-decoration: line-through;
-  opacity: 0.55;
-}
-
-.pair-line.eliminated .vs-badge {
-  opacity: 0.4;
 }
 
 .vs-badge {
@@ -174,7 +161,7 @@ body {
   letter-spacing: 0.3px;
 }
 
-/* ----- RESULT / ACTION AREA ----- */
+/* ----- RESULT INPUT (tanpa tombol eliminasi) ----- */
 .result-area {
   display: flex;
   align-items: center;
@@ -229,34 +216,16 @@ body {
   background: #e2eaf3;
   border: none;
   border-radius: 30px;
-  padding: 0.25rem 1rem;
+  padding: 0.3rem 1.2rem;
   font-weight: 600;
   color: #1d3f60;
   cursor: pointer;
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   transition: 0.15s;
 }
 
 .action-btn:hover {
   background: #c8d8e9;
-}
-
-.action-btn.eliminate-btn {
-  background: #f0d8d8;
-  color: #8a3a3a;
-}
-
-.action-btn.eliminate-btn:hover {
-  background: #e6c4c4;
-}
-
-.action-btn.restore-btn {
-  background: #d4e3d4;
-  color: #1f5a2a;
-}
-
-.action-btn.restore-btn:hover {
-  background: #c0dac0;
 }
 
 /* ----- META (day/date/time) ----- */
