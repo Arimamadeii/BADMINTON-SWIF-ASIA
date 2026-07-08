@@ -1,147 +1,29 @@
 <!DOCTYPE html>
-<html lang="id">
-
+<html lang="en">
 <head>
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Official Bracket | PT SWIF ASIA 2026</title>
-
-    <!-- Google Font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet">
-
-    <!-- CSS -->
-    <link rel="stylesheet" href="css/style.css">
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PT SWIF ASIA · Bagan Badminton 2026</title>
+  <!-- CSS terpisah -->
+  <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
 
-    <!-- Background -->
-    <div class="background">
-
-        <div class="circle circle1"></div>
-        <div class="circle circle2"></div>
-
+<div class="container">
+  <header class="header">
+    <h1>🏸 SWIF ASIA <small>BADMINTON 2026</small></h1>
+    <div class="grade-selector">
+      <button class="grade-btn active" data-grade="all">SEMUA</button>
+      <button class="grade-btn" data-grade="A">GRADE A</button>
+      <button class="grade-btn" data-grade="B">GRADE B</button>
     </div>
+  </header>
 
-    <!-- Header -->
-    <header>
+  <!-- Bagan akan di-render oleh JS di sini -->
+  <div id="bracketContainer" class="bracket"></div>
+</div>
 
-        <img
-            src="https://image.makewebeasy.net/makeweb/0/PKBUEX4Fe/DefaultData/LOGO_SWIFA_PNG2.png?v=202311151122"
-            class="logo"
-            alt="PT SWIF ASIA">
-
-    </header>
-
-    <!-- Hero -->
-    <main class="hero">
-
-        <span class="badge">
-            OFFICIAL BRACKET 2026
-        </span>
-
-        <h1>
-
-            BADMINTON<br>
-            TOURNAMENT
-
-        </h1>
-
-        <h2>
-
-            PT SWIF ASIA
-
-        </h2>
-
-        <p>
-
-            Selamat Datang di Official Bracket Turnamen Badminton PT SWIF ASIA 2026.
-            Pilih kategori pertandingan untuk melihat bagan turnamen.
-
-        </p>
-
-        <!-- Card -->
-        <div class="grade-container">
-
-            <a href="grade-a.html" class="grade-card">
-
-                <div class="icon">
-
-                    🏆
-
-                </div>
-
-                <h3>
-
-                    GRADE A
-
-                </h3>
-
-                <span>
-
-                    Competitive Division
-
-                </span>
-
-                <button>
-
-                    Masuk →
-
-                </button>
-
-            </a>
-
-            <a href="grade-b.html" class="grade-card">
-
-                <div class="icon">
-
-                    🏸
-
-                </div>
-
-                <h3>
-
-                    GRADE B
-
-                </h3>
-
-                <span>
-
-                    Open Division
-
-                </span>
-
-                <button>
-
-                    Masuk →
-
-                </button>
-
-            </a>
-
-        </div>
-
-    </main>
-
-    <!-- Footer -->
-
-    <footer>
-
-        © 2026 PT SWIF ASIA • Official Badminton Tournament
-
-    </footer>
-
-    <!-- JS -->
-
-    <script src="js/app.js"></script>
-
+<!-- JavaScript terpisah -->
+<script src="script.js"></script>
 </body>
-
 </html>
