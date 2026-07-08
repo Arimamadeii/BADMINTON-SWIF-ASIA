@@ -9,10 +9,17 @@
 <body>
 
 <div class="container">
+  <!-- HEADER DENGAN LOGO -->
   <header class="header">
     <div class="header-left">
-      <h1>🏸 SWIF ASIA <small>BADMINTON CHAMPIONSHIP 2026</small></h1>
-      <p class="subtitle">Bagan Turnamen Grade A & B</p>
+      <img src="https://image.makewebeasy.net/makeweb/0/PKBUEX4Fe/DefaultData/LOGO_SWIFA_PNG2.png?v=202311151122" 
+           alt="Logo SWIF ASIA" 
+           class="logo"
+           onerror="this.style.display='none'" />
+      <div class="header-text">
+        <h1>🏸 SWIF ASIA <small>BADMINTON CHAMPIONSHIP 2026</small></h1>
+        <p class="subtitle">Turnamen Ganda · Grade A & B</p>
+      </div>
     </div>
     <div class="grade-selector">
       <button class="grade-btn active" data-grade="all">SEMUA</button>
@@ -21,33 +28,35 @@
     </div>
   </header>
 
-  <!-- BRACKET ILLUSTRATION LENGKAP -->
-  <div class="bracket-illustration">
-    <div class="bracket-stage">
-      <h3>🏆 GRADE A - BRACKET</h3>
-      <div class="bracket-tree" id="bracketTreeA"></div>
-    </div>
-    <div class="bracket-stage">
-      <h3>🏆 GRADE B - BRACKET</h3>
-      <div class="bracket-tree" id="bracketTreeB"></div>
-    </div>
-  </div>
-
   <!-- FILTER BABAK -->
   <div class="round-filter">
-    <button class="round-btn active" data-round="all">SEMUA BABAK</button>
+    <span class="filter-label">🏷️ Babak:</span>
+    <button class="round-btn active" data-round="all">SEMUA</button>
     <button class="round-btn" data-round="16">16 BESAR</button>
     <button class="round-btn" data-round="8">8 BESAR</button>
     <button class="round-btn" data-round="semifinal">SEMIFINAL</button>
     <button class="round-btn" data-round="final">FINAL</button>
   </div>
 
+  <!-- BRACKET ILLUSTRATION -->
+  <div class="bracket-illustration">
+    <div class="bracket-stage">
+      <h3>🏆 GRADE A</h3>
+      <div class="bracket-tree" id="bracketTreeA"></div>
+    </div>
+    <div class="bracket-stage">
+      <h3>🏆 GRADE B</h3>
+      <div class="bracket-tree" id="bracketTreeB"></div>
+    </div>
+  </div>
+
+  <!-- BRACKET CARDS -->
   <div class="bracket-wrapper">
     <div id="bracketContainer" class="bracket"></div>
   </div>
 </div>
 
-<!-- Modal Detail Pertandingan -->
+<!-- MODAL DETAIL PERTANDINGAN -->
 <div id="matchModal" class="modal">
   <div class="modal-content">
     <span class="modal-close">&times;</span>
