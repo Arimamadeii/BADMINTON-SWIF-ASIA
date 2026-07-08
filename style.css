@@ -1,0 +1,448 @@
+/* ==========================
+   PT SWIF ASIA TOURNAMENT
+   OFFICIAL STYLE
+========================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+
+    font-family:'Poppins',sans-serif;
+
+    background:#07121F;
+
+    color:white;
+
+    overflow-x:hidden;
+
+}
+
+/*==============================
+BACKGROUND
+==============================*/
+
+.background{
+
+    position:fixed;
+
+    inset:0;
+
+    overflow:hidden;
+
+    z-index:-5;
+
+    background:
+
+    radial-gradient(circle at top left,#114C9A 0%,transparent 40%),
+
+    radial-gradient(circle at bottom right,#0094FF 0%,transparent 35%),
+
+    linear-gradient(135deg,#07121F,#0C1B2F,#07121F);
+
+}
+
+.circle{
+
+    position:absolute;
+
+    border-radius:50%;
+
+    filter:blur(120px);
+
+    opacity:.35;
+
+}
+
+.circle1{
+
+    width:400px;
+
+    height:400px;
+
+    background:#0EA5E9;
+
+    top:-120px;
+
+    left:-120px;
+
+    animation:float1 10s infinite alternate;
+
+}
+
+.circle2{
+
+    width:450px;
+
+    height:450px;
+
+    background:#FFD54A;
+
+    right:-150px;
+
+    bottom:-150px;
+
+    animation:float2 12s infinite alternate;
+
+}
+
+@keyframes float1{
+
+from{
+
+transform:translate(0,0);
+
+}
+
+to{
+
+transform:translate(50px,70px);
+
+}
+
+}
+
+@keyframes float2{
+
+from{
+
+transform:translate(0,0);
+
+}
+
+to{
+
+transform:translate(-80px,-40px);
+
+}
+
+}
+
+/*==============================
+HEADER
+==============================*/
+
+header{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:40px;
+
+}
+
+.logo{
+
+    width:160px;
+
+    filter:drop-shadow(0 0 20px rgba(255,255,255,.3));
+
+}
+
+/*==============================
+HERO
+==============================*/
+
+.hero{
+
+    width:min(1100px,90%);
+
+    margin:auto;
+
+    text-align:center;
+
+}
+
+.badge{
+
+    display:inline-block;
+
+    padding:10px 22px;
+
+    border-radius:50px;
+
+    border:1px solid rgba(255,255,255,.2);
+
+    background:rgba(255,255,255,.08);
+
+    backdrop-filter:blur(20px);
+
+    color:#8DD8FF;
+
+    letter-spacing:2px;
+
+    margin-bottom:25px;
+
+}
+
+.hero h1{
+
+    font-size:72px;
+
+    font-weight:800;
+
+    line-height:1;
+
+    letter-spacing:2px;
+
+}
+
+.hero h2{
+
+    margin-top:18px;
+
+    font-weight:300;
+
+    color:#D5E7F6;
+
+}
+
+.hero p{
+
+    margin:35px auto;
+
+    max-width:760px;
+
+    color:#BFCEDB;
+
+    line-height:1.8;
+
+    font-size:18px;
+
+}
+
+/*==============================
+GRADE CARD
+==============================*/
+
+.grade-container{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:35px;
+
+    flex-wrap:wrap;
+
+    margin-top:60px;
+
+}
+
+.grade-card{
+
+    width:320px;
+
+    text-decoration:none;
+
+    color:white;
+
+    padding:40px;
+
+    border-radius:25px;
+
+    background:rgba(255,255,255,.08);
+
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,.15);
+
+    transition:.35s;
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+.grade-card::before{
+
+content:"";
+
+position:absolute;
+
+top:-120px;
+
+left:-80px;
+
+width:220px;
+
+height:220px;
+
+background:rgba(255,255,255,.06);
+
+border-radius:50%;
+
+}
+
+.grade-card:hover{
+
+transform:translateY(-12px);
+
+border:1px solid #0EA5E9;
+
+box-shadow:
+
+0 0 30px rgba(14,165,233,.4),
+
+0 0 60px rgba(14,165,233,.2);
+
+}
+
+.icon{
+
+font-size:55px;
+
+margin-bottom:25px;
+
+}
+
+.grade-card h3{
+
+font-size:34px;
+
+margin-bottom:8px;
+
+}
+
+.grade-card span{
+
+display:block;
+
+color:#C9D4DE;
+
+margin-bottom:35px;
+
+}
+
+.grade-card button{
+
+padding:14px 32px;
+
+border:none;
+
+border-radius:50px;
+
+background:#0EA5E9;
+
+color:white;
+
+font-weight:600;
+
+font-size:16px;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+.grade-card:hover button{
+
+background:#FFD54A;
+
+color:#111;
+
+}
+
+/*==============================
+FOOTER
+==============================*/
+
+footer{
+
+margin-top:90px;
+
+padding:35px;
+
+text-align:center;
+
+font-size:14px;
+
+color:#8DA4B7;
+
+}
+
+/*==============================
+RESPONSIVE
+==============================*/
+
+@media(max-width:900px){
+
+.hero h1{
+
+font-size:50px;
+
+}
+
+.grade-card{
+
+width:100%;
+
+max-width:380px;
+
+}
+
+.hero p{
+
+font-size:16px;
+
+}
+
+.logo{
+
+width:130px;
+
+}
+
+}
+
+@media(max-width:500px){
+
+.hero h1{
+
+font-size:38px;
+
+}
+
+.hero h2{
+
+font-size:20px;
+
+}
+
+.badge{
+
+font-size:12px;
+
+}
+
+.hero p{
+
+font-size:15px;
+
+}
+
+.grade-card{
+
+padding:30px;
+
+}
+
+.grade-card h3{
+
+font-size:28px;
+
+}
+
+}
